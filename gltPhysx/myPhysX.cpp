@@ -1,19 +1,22 @@
-//#include <glutm/main.h>
-#include <glutm/winexam.h>
-#include <glutm/glut.h>
-#include <glutm/shape.h>
-#include <glt/light.h>					//Enable Light
+/***********************************************
+ * myPhysX.cpp
+ * @author - Kenichi Yorozu
+ * @email - rozken@gmail.com
+ * @website - http://rozken.homelinux.net/
+ * @description - This is an Physics-Based Simulation Circumstance
+ * by using PhysX and OpenGL Toolkit.
+ * @development_status - Just Integrated OpenGL Toolkit and PhysX.
+ * However initialization and termination are only implemented PhysX features.
+ * @TODO - For visual and physical object integration, I have to create
+ * new Shape class inheriting GltShape.
+ ***********************************************/
+#include <glutm/winexam.h>		//OpenGL Window
+#include <glutm/shape.h>			//GLUT Geometric Object Classes
+#include <glt/light.h>					//Enable Light Source
 #include <NxPhysics.h>				//PhysX
-//#include <glt/fontasci.h>
-#include <glt/rgb.h>
-
-//#include <node/shape.h>
-//#include <node/text.h>
-
-//#include <fonts/fonts.h>
-
-#include <memory>
-#include <iostream>
+#include <glt/rgb.h>					//use color name e.g. blue red
+#include <iostream>					//use console/file inputs/outputs
+#include <vector>						//use dynamic array
 
 using namespace std;
 
@@ -42,9 +45,18 @@ protected:
 	bool InitNx();						//Initialize PhysX
 	bool InitNxScene();				//Initialize PhysX Scene
 	void CleanUpNx();				//Terminate PhysX
-	void myGLInit();			//Initialize OpenGL
+	void myGLInit();					//Initialize OpenGL
 
-	auto_ptr<GltShape>  _shape;
+	//auto_ptr<GltShape>  _shape;
+	//Shape List
+	vector<GltShape*> _shape;
+
+	//Viewport Ground
+	bool _isShowGroundPlane;	//Flag to switch Ground Plane Display ON/OFF
+	int _yGround;			//Ground Level y
+	int _numGridLine;			//Half Number of Grid Lines
+	float _scaleGridLine;		//Scale of Grid Lines
+
 	int		_fps;							//frame per second : Simulation Time
 	bool	_isSimulate;				//Flag to switch Simulation ON/OFF
 	NxPhysicsSDK* _pPhysicsSDK;	//PhysX
@@ -54,7 +66,8 @@ protected:
 
 myPhysX::myPhysX(int width,int height,int x,int y, int fps, bool isSimulate)
 : GlutWindowExaminer("myPhysX",width,height,x,y),_fps(fps)
-	,_isSimulate(isSimulate),_DefaultGravity(0, -9.8, 0)
+	,_isSimulate(isSimulate),_DefaultGravity(0, -9.8, 0),_yGround(0)
+	,_numGridLine(10),_scaleGridLine(0.2f),_isShowGroundPlane(true)
 {
 	InitNx();
 	InitNxScene();
@@ -85,16 +98,33 @@ myPhysX::OnClose()
 void myPhysX::OnDisplay()
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glClearColor(0.2, 0.2, 0.2, 1.0);		//”wŒiF‚ðÝ’è
+	glClearColor(0.3, 0.3, 0.3, 1.0);		//”wŒiF‚ðÝ’è
 
-	if (_shape.get()){
-		_shape->draw();
+	//glMatrixMode(GL_MODELVIEW);
+	//glLoadIdentity();
+
+	//Render All Objects
+	for( int i = 0;i < _shape.size(); i++){
+		_shape[i]->draw();
+	}
+	//Render Ground Plane
+	if(_isShowGroundPlane){
+		glBegin(GL_LINES);
+			for(int i=-_numGridLine;i<=_numGridLine;i++) {
+				//Lines Parallel to Z Axis
+				glVertex3f(i*_scaleGridLine, _yGround, -_numGridLine * _scaleGridLine);
+				glVertex3f(i*_scaleGridLine, _yGround, _numGridLine * _scaleGridLine);
+				//Lines Prallel to X Axis
+				glVertex3f(_numGridLine * _scaleGridLine, _yGround, i*_scaleGridLine);
+				glVertex3f(-_numGridLine * _scaleGridLine, _yGround, i*_scaleGridLine);
+			}
+		glEnd();
 	}
 }
 
 void myPhysX::OnTick()
 {
-	if (!mousePressed()){
+	if (!mousePressed() && !_isSimulate){
 		_viewMatrix = matrixRotate(Vector1,0.2)*_viewMatrix;
 	}
 	if(_isSimulate){
@@ -110,38 +140,58 @@ void myPhysX::OnTick()
 
 void myPhysX::OnKeyboard(unsigned char key, int x, int y)
 {
-	GlutWindowExaminer::OnKeyboard(key,x,y);
+	bool draw = true;
 
 	GltShape *newShape = NULL;
-
-	switch (key)
-	{
-	case '1':					//'1'
+	switch (key){
+	case '1':					//Press '1'
 		newShape = new GlutSphere(false);
 		break;
-	case 27:				//'ESC'
+	case '2':					//Press '2'
+		newShape = new GlutCube(false);
+		break;
+	case '0':					//Press '0'
+		_shape.clear();	//Clear All Objects
+		break;
+	case 'g':					//Press 'g'
+		_isShowGroundPlane = !_isShowGroundPlane;	//Switch Display Flag State
+		break;
+	case 27:				//Press 'ESC'
 		exit(0);				//Terminate Program
 		break;
-	case 32:
+	case 32:				//Press Space Key
 		_isSimulate = !_isSimulate;	//Switch Simulation Flag State
 		break;
 	default:
+		GlutWindow::OnKeyboard(key, x, y);
+		draw = false;
 		break;
 	}
-
+	
+	//Add Objects to Shape Array
 	if (newShape)
 	{
-		// gcc doesn't allow:  _shape = auto_ptr<GltShape>(newShape)
-		auto_ptr<GltShape> tmp(newShape);
-		_shape = tmp;
+		_shape.push_back(newShape);
+	}
+	
+	//Cnfigure Each Object;
+	GltShape* tmp;
+	for(int i = 0; i < _shape.size(); i++){
+		tmp = _shape[i];
+		tmp->color() = green;
+		//tmp->solid() = false;
 	}
 
-	_shape->color() = green;
-	_shape->solid() = false;
-
-	postRedisplay();
+	if(draw){
+		_viewMatrixInverse = _viewMatrix.inverse();
+		postRedisplay();
+		OnOrient(_viewMatrix,_viewMatrixInverse);
+	}
 }
-
+	/**
+	 *	InitNx() : Initialize PhysX
+	 *	@return bool - whether Physics SDK Initialization has done or not.
+	 */
 bool myPhysX::InitNx()
 {
 	bool initialized = false;
@@ -193,6 +243,10 @@ void myPhysX::CleanUpNx(){
 		NxReleasePhysicsSDK( _pPhysicsSDK );
 		_pPhysicsSDK = NULL;	//Release PhysicsSDK Object
 	}
+	
+	if(!_shape.empty()){
+		_shape.clear();		//Release Shape Array
+	}
 #ifdef _DEBUG
 		std::cout << "Clean Up Ended." << std::endl;
 #endif //_DEBUG
@@ -203,7 +257,6 @@ void myPhysX::CleanUpNx(){
 	 */
 void myPhysX::myGLInit(){
 	// Setup default render states
-	//glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_COLOR_MATERIAL);
 	glEnable(GL_LIGHTING);
@@ -217,7 +270,7 @@ void myPhysX::myGLInit(){
 	//glDepthRange(0.0,1.0);
 	//glLoadIdentity();
 
-	//// Setup lighting
+	// Setup Lighting
 	GltLight light0(GL_LIGHT0);
 	light0.ambient()  = blue;
 	light0.specular() = green;
@@ -225,16 +278,20 @@ void myPhysX::myGLInit(){
 	light0.position() = Vector(1.5f, 4.0f, 8.0f);
 	light0.enabled() = true;
 	light0.set();
-	// Setup lighting
+
 #ifdef _DEBUG
 	cout << "OpenGL Initialized" << endl;
 #endif //_DEBUG
 	return;
 }
 
+	/*
+	 * GlutMain : Entry Point for this Program
+	 * @return bool - whether program ended correctly or not.
+	 */
 bool GlutMain(const std::vector<std::string> &arg)
 {
-	GlutWindow *main = new myPhysX(640,480,100,100);
+	GlutWindow *main = new myPhysX(800,600,100,100);
 	main->open();
 	cout << "===Viewport Navigation (Maya Style)===" <<endl;
 	cout << "Rotate: Right Drag" << endl;
