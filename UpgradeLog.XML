@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="gltPhysx">
+</Property><Property Name="ソリューション ファイル" Value="C:\Users\RozKen\Documents\Dropbox\Development\cpp\physX\gltPhysx\gltPhysx.sln">
+</Property><Property Name="ユーザー オプション ファイル" Value="C:\Users\RozKen\Documents\Dropbox\Development\cpp\physX\gltPhysx\gltPhysx.suo">
+</Property><Property Name="Date" Value="2011年5月19日">
+</Property><Property Name="Time" Value="21:01">
+</Property></Properties><Event ErrorLevel="0" Project="" Source="gltPhysx.sln" Description="ファイルは正常に C:\Users\RozKen\Documents\Dropbox\Development\cpp\physX\gltPhysx\gltPhysx.sln.old としてバックアップされました。">
+</Event><Event ErrorLevel="0" Project="" Source="gltPhysx.suo" Description="ファイルは正常に C:\Users\RozKen\Documents\Dropbox\Development\cpp\physX\gltPhysx\gltPhysx.suo.old としてバックアップされました。">
+</Event><Event ErrorLevel="0" Project="gltPhysx" Source="gltPhysx\gltPhysx.vcproj" Description="Converting project file 'C:\Users\RozKen\Documents\Dropbox\Development\cpp\physX\gltPhysx\gltPhysx\gltPhysx.vcproj'.">
+</Event><Event ErrorLevel="1" Project="gltPhysx" Source="gltPhysx\gltPhysx.vcproj" Description="VCWebServiceProxyGeneratorTool is no longer supported. The tool has been removed from your project settings.">
+</Event><Event ErrorLevel="0" Project="gltPhysx" Source="gltPhysx\gltPhysx.vcproj" Description="Done converting to new project file 'C:\Users\RozKen\Documents\Dropbox\Development\cpp\physX\gltPhysx\gltPhysx\gltPhysx.vcxproj'.">
+</Event><Event ErrorLevel="3" Project="gltPhysx" Source="gltPhysx\gltPhysx.vcproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="" Source="gltPhysx.sln" Description="ソリューションは正常に変換されました">
+</Event><Event ErrorLevel="3" Project="" Source="gltPhysx.sln" Description="Converted">
+</Event></UpgradeLog>
