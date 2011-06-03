@@ -1,0 +1,29 @@
+﻿2011/06/03 1:09:22 にビルドを開始しました。
+     1>ノード 2 上のプロジェクト "C:\Users\RozKen\Documents\Dropbox\Development\cpp\physX\gltPhysx\gltPhysx\gltPhysx.vcxproj" (rebuild ターゲット)。
+     1>_PrepareForClean:
+         ファイル "x64\Debug\gltPhysx.lastbuildstate" を削除しています。
+       InitializeBuildStatus:
+         "x64\Debug\gltPhysx.unsuccessfulbuild" のタッチ タスクを実行しています。
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\CL.exe /c /Zi /nologo /W3 /WX- /Od /D WIN32 /D _WIN64 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"x64\Debug\\" /Fd"x64\Debug\vc100.pdb" /Gd /TP /errorReport:prompt ActorBox.cpp ActorGroundPlane.cpp ActorSphere.cpp gltPhysX.cpp main.cpp
+         main.cpp
+         gltPhysX.cpp
+         ActorSphere.cpp
+         ActorGroundPlane.cpp
+         ActorBox.cpp
+         Generating Code...
+       ManifestResourceCompile:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\rc.exe /nologo /fo"x64\Debug\gltPhysx.exe.embed.manifest.res" x64\Debug\gltPhysx_manifest.rc 
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 10.0\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\RozKen\Documents\Dropbox\Development\cpp\physX\gltPhysx\x64\Debug\gltPhysx.exe" /INCREMENTAL /NOLOGO PhysXLoader64.lib glut32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"x64\Debug\gltPhysx.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\RozKen\Documents\Dropbox\Development\cpp\physX\gltPhysx\x64\Debug\gltPhysx.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\RozKen\Documents\Dropbox\Development\cpp\physX\gltPhysx\x64\Debug\gltPhysx.lib" /MACHINE:X64 x64\Debug\gltPhysx.exe.embed.manifest.res
+         x64\Debug\ActorBox.obj
+         x64\Debug\ActorGroundPlane.obj
+         x64\Debug\ActorSphere.obj
+         x64\Debug\gltPhysX.obj
+         x64\Debug\main.obj
+     1>LINK : fatal error LNK1104: ファイル 'glut32.lib' を開くことができません。
+     1>プロジェクト "C:\Users\RozKen\Documents\Dropbox\Development\cpp\physX\gltPhysx\gltPhysx\gltPhysx.vcxproj" (rebuild ターゲット) のビルドが終了しました -- 失敗。
+
+ビルドに失敗しました。
+
+経過時間 00:00:08.80

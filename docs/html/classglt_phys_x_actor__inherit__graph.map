@@ -1,0 +1,5 @@
+<map id="G" name="G">
+<area shape="rect" id="node3" href="$class_actor_box.html" title="ActorBox" alt="" coords="5,83,80,112"/>
+<area shape="rect" id="node5" href="$class_actor_ground_plane.html" title="ActorGroundPlane" alt="" coords="104,83,232,112"/>
+<area shape="rect" id="node7" href="$class_actor_sphere.html" title="ActorSphere" alt="" coords="256,83,349,112"/>
+</map>

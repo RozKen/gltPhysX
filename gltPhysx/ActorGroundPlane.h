@@ -1,5 +1,5 @@
-#ifndef ActorGoundPlane_H_
-#define ActorGoundPlane_H_
+#ifndef ActorGroundPlane_H_
+#define ActorGroundPlane_H_
 
 #include "gltPhysXActor.hpp"
 
@@ -18,9 +18,10 @@ protected:
 };
 inline ActorGroundPlane::ActorGroundPlane(NxScene* pScene)
 	: gltPhysXActor(pScene), _yGround(0), _numGridLine(10), _scaleGridLine(0.2f){
+	Create();
 }
 //inline ActorGroundPlane::~ActorGroundPlane(){
 //	this->~gltPhysXActor();
 //}
 
-#endif	//ActorGoundPlane_H_
+#endif	//ActorGroundPlane_H_

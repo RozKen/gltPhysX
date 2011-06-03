@@ -119,7 +119,7 @@
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_WIN64;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -159,12 +159,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ActorBox.cpp" />
     <ClCompile Include="ActorGroundPlane.cpp" />
+    <ClCompile Include="ActorSphere.cpp" />
     <ClCompile Include="gltPhysX.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ActorBox.h" />
     <ClInclude Include="ActorGroundPlane.h" />
+    <ClInclude Include="ActorSphere.h" />
     <ClInclude Include="gltPhysX.hpp" />
     <ClInclude Include="gltPhysXActor.hpp" />
   </ItemGroup>

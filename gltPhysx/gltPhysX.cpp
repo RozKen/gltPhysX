@@ -1,6 +1,10 @@
 #include "gltPhysX.hpp"
 #include "gltPhysXActor.hpp"
+
 #include "ActorGroundPlane.h"	//Ç≈Ç´ÇÍÇŒÇ±Ç±Ç…íuÇ´ÇΩÇ≠Ç»Ç¢Åc
+#include "ActorBox.h"
+#include "ActorSphere.h"
+
 
 void gltPhysX::OnDisplay()
 {
@@ -49,10 +53,10 @@ void gltPhysX::OnKeyboard(unsigned char key, int x, int y)
 	//GltShape *newShape = NULL;
 	switch (key){
 	case '1':					//Press '1'
-		//newShape = new GlutSphere(false);
+		newActor = new ActorSphere(_pScene, 0.2f, NxVec3(1, 1, 0));
 		break;
 	case '2':					//Press '2'
-		//newShape = new GlutCube(false);
+		newActor = new ActorBox(_pScene, NxVec3(0, 1, 0), NxVec3(0.2f, 0.2f, 0.2f));
 		break;
 	case '0':					//Press '0'
 		_actors.clear();	//Clear All Objects

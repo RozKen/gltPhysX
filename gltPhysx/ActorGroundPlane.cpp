@@ -1,18 +1,16 @@
 #include "ActorGroundPlane.h"
-#include <NxPhysics.h>				//PhysX
 
 void ActorGroundPlane::Create(){
-	//actor Descriptor with Collection of Shapes.
-	NxActorDesc	actorDesc;
 
-	//Plane Shape Descriptor
-	NxPlaneShapeDesc	planeDesc;
+	NxActorDesc	actorDesc;			///actor Descriptor with Collection of Shapes.
+	NxPlaneShapeDesc	planeDesc;	///Plane Shape Descriptor
+	
 	//平面方程式: ax + by + cz + d = 0;
 	planeDesc.normal = NxVec3(0, 1, 0);		//面の法線はY軸(↑)方向
 	planeDesc.d = 0.0f;								//Y = 0.0fに面を作る
 
 	actorDesc.shapes.pushBack( &planeDesc );	//ActorにPlaneを登録
-		
+
 	//NxScene Creates Actor and Returns a Pointer.
 	_pActor = _pScene->createActor( actorDesc);
 	_pActor->userData = NULL;		//PhysX上のActorと(ゲームなどの)データ上のActorを結びつける

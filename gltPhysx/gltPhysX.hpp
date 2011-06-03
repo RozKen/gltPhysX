@@ -41,8 +41,8 @@ public:
 		int height               = heightDefault,
 		int x                    = xDefault, 
 		int y                    = yDefault,
-		int fps					= 60,
-		bool isSimulate		= true
+		int fps					 = 60,
+		bool isSimulate			 = true
 	);
    ~gltPhysX();
 
@@ -91,12 +91,12 @@ inline gltPhysX::~gltPhysX()
 
 inline void
 gltPhysX::OnOpen()
-{
+{ 
 	_viewMatrix = matrixRotate(VectorY, 60.0)*matrixRotate(VectorX,-30.0)*_viewMatrix;
 	
 	myGLInit();
 	
-	//OnKeyboard('1',0,0);	// Select sphere to start with
+	OnKeyboard('f', 0, 0);	// Create Ground Plane
 	setTick(1000/_fps);		// 60fps maximum
 }
 
